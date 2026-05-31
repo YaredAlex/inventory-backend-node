@@ -11,10 +11,13 @@ import { seedUsers } from "./seeders/user_seeder.js";
 import { getCurrentUser } from "./utils/dependencies.js";
 import { User, UserRole } from "./models/user.js";
 import logger from "./services/logger.js";
-
+import { errorHandler, notFound } from "./middleware/error_handle.js";
 // Import routers
 import authRouter from "./routes/auth.js";
-
+import branchesRouter from "./routes/branches.js";
+import dashboardRouter from "./routes/dashboard.js";
+import productsRouter from "./routes/product.js";
+import usersRouter from "./routes/user.js";
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
 
@@ -78,9 +81,6 @@ function stopScheduler(): void {
   if (dailyReportJob) dailyReportJob.stop();
   logger.info("Scheduler stopped");
 }
-
-// ==================== ROUTES ====================
-app.use("/api/auth", authRouter);
 
 // ==================== TEST EMAIL ENDPOINT ====================
 app.post("/api/test/email", async (req: Request, res: Response) => {
@@ -210,7 +210,16 @@ app.get("/api/db-info", async (req: Request, res: Response) => {
     res.status(500).json({ detail: "Failed to get database info" });
   }
 });
+// ==================== ROUTES ====================
+app.use("/api/auth", authRouter);
+app.use("/api/dashboard", dashboardRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/branches", branchesRouter);
+app.use("/api/users", usersRouter);
+app.use(notFound);
 
+// Global error handler - must be last
+app.use(errorHandler);
 // ==================== ERROR HANDLING ====================
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   logger.error(`Unhandled error: ${err.stack}`);

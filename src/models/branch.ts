@@ -1,6 +1,6 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
 
-interface BranchAttributes {
+export interface BranchAttributes {
   id: number;
   name: string;
   address: string | null;
@@ -17,11 +17,11 @@ export class Branch
   extends Model<BranchAttributes, BranchCreationAttributes>
   implements BranchAttributes
 {
-  public id!: number;
-  public name!: string;
-  public address!: string | null;
-  public phone!: string | null;
-  public created_at!: Date;
+  declare id: number;
+  declare name: string;
+  declare address: string | null;
+  declare phone: string | null;
+  declare created_at: Date;
 
   // Associations
   public static associate(models: any) {

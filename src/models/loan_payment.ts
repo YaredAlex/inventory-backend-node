@@ -30,17 +30,17 @@ export class LoanPayment
   extends Model<LoanPaymentAttributes, LoanPaymentCreationAttributes>
   implements LoanPaymentAttributes
 {
-  public id!: number;
-  public loan_id!: number;
-  public payment_number!: string;
-  public payment_date!: Date;
-  public amount!: number;
-  public payment_method!: PaymentMethod;
-  public reference_number!: string | null;
-  public notes!: string | null;
-  public recorded_by!: number;
-  public sale_id!: number | null;
-  public created_at!: Date;
+  declare id: number;
+  declare loan_id: number;
+  declare payment_number: string;
+  declare payment_date: Date;
+  declare amount: number;
+  declare payment_method: PaymentMethod;
+  declare reference_number: string | null;
+  declare notes: string | null;
+  declare recorded_by: number;
+  declare sale_id: number | null;
+  declare created_at: Date;
 
   public static associate(models: any) {
     LoanPayment.belongsTo(models.Loan, { foreignKey: "loan_id", as: "loan" });

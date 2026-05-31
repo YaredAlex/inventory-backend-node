@@ -1,10 +1,13 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
+import { PurchaseOrderItem } from "./purchase_order_item.js";
 
 export enum PurchaseStatus {
   PENDING = "pending",
   APPROVED = "approved",
   SHIPPED = "shipped",
   RECEIVED = "received",
+  PARTIALLY_RECEIVED = "partially_received",
+  COMPLETED = "completed",
   CANCELLED = "cancelled",
 }
 
@@ -28,11 +31,18 @@ interface PurchaseOrderAttributes {
   created_by: number;
   created_at: Date;
   updated_at: Date | null;
+  bank_account_id: number | null;
+  payment_reference: string | null;
+  payment_date: Date | null;
+  // Add items as optional since it's populated by include
+  items?: PurchaseOrderItem[];
 }
 
 interface PurchaseOrderCreationAttributes extends Optional<
   PurchaseOrderAttributes,
   | "id"
+  | "order_date"
+  | "created_at"
   | "expected_delivery_date"
   | "actual_delivery_date"
   | "subtotal"
@@ -44,31 +54,39 @@ interface PurchaseOrderCreationAttributes extends Optional<
   | "total_amount"
   | "notes"
   | "updated_at"
+  | "bank_account_id"
+  | "payment_reference"
+  | "payment_date"
+  | "items"
 > {}
 
 export class PurchaseOrder
   extends Model<PurchaseOrderAttributes, PurchaseOrderCreationAttributes>
   implements PurchaseOrderAttributes
 {
-  public id!: number;
-  public order_number!: string;
-  public branch_id!: number;
-  public supplier!: string;
-  public order_date!: Date;
-  public expected_delivery_date!: Date | null;
-  public actual_delivery_date!: Date | null;
-  public status!: PurchaseStatus;
-  public subtotal!: number;
-  public vat_rate!: number;
-  public vat_amount!: number;
-  public tax_amount!: number;
-  public shipping_cost!: number;
-  public discount_amount!: number;
-  public total_amount!: number;
-  public notes!: string | null;
-  public created_by!: number;
-  public created_at!: Date;
-  public updated_at!: Date | null;
+  declare id: number;
+  declare order_number: string;
+  declare branch_id: number;
+  declare supplier: string;
+  declare order_date: Date;
+  declare expected_delivery_date: Date | null;
+  declare actual_delivery_date: Date | null;
+  declare status: PurchaseStatus;
+  declare subtotal: number;
+  declare vat_rate: number;
+  declare vat_amount: number;
+  declare tax_amount: number;
+  declare shipping_cost: number;
+  declare discount_amount: number;
+  declare total_amount: number;
+  declare notes: string | null;
+  declare created_by: number;
+  declare created_at: Date;
+  declare updated_at: Date | null;
+  declare bank_account_id: number | null;
+  declare payment_reference: string | null;
+  declare payment_date: Date | null;
+  declare items?: PurchaseOrderItem[]; // Add this line
 
   public static associate(models: any) {
     PurchaseOrder.belongsTo(models.Branch, {
@@ -78,6 +96,10 @@ export class PurchaseOrder
     PurchaseOrder.belongsTo(models.User, {
       foreignKey: "created_by",
       as: "creator",
+    });
+    PurchaseOrder.belongsTo(models.BankAccount, {
+      foreignKey: "bank_account_id",
+      as: "bank_account",
     });
     PurchaseOrder.hasMany(models.PurchaseOrderItem, {
       foreignKey: "purchase_order_id",
@@ -138,7 +160,7 @@ export class PurchaseOrder
         },
         vat_rate: {
           type: DataTypes.DECIMAL(5, 2),
-          defaultValue: 15,
+          defaultValue: 0,
         },
         vat_amount: {
           type: DataTypes.DECIMAL(12, 2),
@@ -175,8 +197,25 @@ export class PurchaseOrder
         created_at: {
           type: DataTypes.DATE,
           defaultValue: DataTypes.NOW,
+          allowNull: false,
         },
         updated_at: {
+          type: DataTypes.DATE,
+          allowNull: true,
+        },
+        bank_account_id: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+          references: {
+            model: "bank_accounts",
+            key: "id",
+          },
+        },
+        payment_reference: {
+          type: DataTypes.STRING(100),
+          allowNull: true,
+        },
+        payment_date: {
           type: DataTypes.DATE,
           allowNull: true,
         },
