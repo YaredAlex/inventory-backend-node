@@ -1,0 +1,9 @@
+// In app.ts
+import authRouter from './routes/auth';
+
+// ... after other middleware setup
+
+// Auth routes (no authentication required for these)
+app.use('/api/auth', authRouter);
+
+// Other protected routes...
