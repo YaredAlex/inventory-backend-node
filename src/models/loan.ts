@@ -1,11 +1,5 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
-
-export enum LoanStatus {
-  ACTIVE = "active",
-  COMPLETED = "completed",
-  OVERDUE = "overdue",
-  CANCELLED = "cancelled",
-}
+import { LoanStatus } from "../schemas/loan.js";
 
 export enum ApprovalStatus {
   PENDING = "pending",
@@ -53,6 +47,7 @@ interface LoanCreationAttributes extends Optional<
   | "updated_at"
   | "requires_approval"
   | "approval_status"
+  | "created_at"
 > {}
 
 export class Loan

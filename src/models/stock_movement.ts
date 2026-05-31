@@ -6,6 +6,9 @@ export enum MovementType {
   RETURN = "return",
   ADJUSTMENT = "adjustment",
   TRANSFER = "transfer",
+  LOAN = "loan",
+  REFUND = "refund",
+  ADD = "add",
 }
 
 interface StockMovementAttributes {

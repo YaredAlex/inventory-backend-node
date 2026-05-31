@@ -17,6 +17,11 @@ export enum RefundStatus {
   NONE = "none",
   PARTIAL = "partial",
   FULL = "full",
+  PENDING = "pending",
+  APPROVED = "approved",
+  COMPLETED = "completed",
+  REJECTED = "rejected",
+  REFUND = "refund",
 }
 
 interface SaleAttributes {
@@ -64,6 +69,7 @@ interface SaleCreationAttributes extends Optional<
   | "refund_status"
   | "notes"
   | "updated_at"
+  | "created_at"
 > {}
 
 export class Sale

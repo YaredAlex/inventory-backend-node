@@ -24,15 +24,15 @@ export class PurchaseOrderItem
   >
   implements PurchaseOrderItemAttributes
 {
-  public id!: number;
-  public purchase_order_id!: number;
-  public product_id!: number;
-  public quantity_ordered!: number;
-  public quantity_received!: number;
-  public unit_cost!: number;
-  public total_cost!: number;
-  public received_at!: Date | null;
-  public notes!: string | null;
+  declare id: number;
+  declare purchase_order_id: number;
+  declare product_id: number;
+  declare quantity_ordered: number;
+  declare quantity_received: number;
+  declare unit_cost: number;
+  declare total_cost: number;
+  declare received_at: Date | null;
+  declare notes: string | null;
 
   public static associate(models: any) {
     PurchaseOrderItem.belongsTo(models.PurchaseOrder, {

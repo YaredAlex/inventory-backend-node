@@ -6,7 +6,7 @@ import { User } from "../models/user.js";
 import { Product } from "../models/product.js";
 import { Branch } from "../models/branch.js";
 import { Sale } from "../models/sale.js";
-import { Loan, LoanStatus } from "../models/loan.js";
+import { Loan } from "../models/loan.js";
 import { Purchase } from "../models/purchase.js";
 import { PurchaseItem } from "../models/purchase_item.js";
 import { SaleItem } from "../models/sale_item.js";
@@ -16,6 +16,7 @@ import { Alert } from "../models/alert.js";
 import fs from "fs";
 import path from "path";
 import logger from "./logger.js";
+import { LoanStatus } from "../schemas/loan.js";
 
 export class SettingsService {
   private static getValue(setting: SystemSetting | null): any {

@@ -18,12 +18,12 @@ export class Purchase
   extends Model<PurchaseAttributes, PurchaseCreationAttributes>
   implements PurchaseAttributes
 {
-  public id!: number;
-  public branch_id!: number;
-  public supplier_name!: string | null;
-  public total_amount!: number;
-  public purchase_order_id!: number | null;
-  public created_at!: Date;
+  declare id: number;
+  declare branch_id: number;
+  declare supplier_name: string | null;
+  declare total_amount: number;
+  declare purchase_order_id: number | null;
+  declare created_at: Date;
 
   public static associate(models: any) {
     Purchase.belongsTo(models.Branch, {

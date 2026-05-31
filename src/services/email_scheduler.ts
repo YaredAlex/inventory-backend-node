@@ -190,8 +190,8 @@ export class EmailScheduler {
                 revenue: 0,
               };
             }
-            productSales[item.product_id].quantity += Number(item.quantity);
-            productSales[item.product_id].revenue += Number(item.line_total);
+            productSales[item.product_id]!.quantity += Number(item.quantity);
+            productSales[item.product_id]!.revenue += Number(item.line_total);
           }
         }
       }

@@ -9,7 +9,7 @@ interface BankAccountAttributes {
   account_type: string;
   currency: string;
   is_active: boolean;
-  notes: string | null;
+  notes?: string | null;
   created_at: Date;
   updated_at: Date | null;
 }
@@ -29,17 +29,17 @@ export class BankAccount
   extends Model<BankAccountAttributes, BankAccountCreationAttributes>
   implements BankAccountAttributes
 {
-  public id!: number;
-  public branch_id!: number;
-  public bank_name!: string;
-  public account_number!: string;
-  public account_name!: string;
-  public account_type!: string;
-  public currency!: string;
-  public is_active!: boolean;
-  public notes!: string | null;
-  public created_at!: Date;
-  public updated_at!: Date | null;
+  declare id: number;
+  declare branch_id: number;
+  declare bank_name: string;
+  declare account_number: string;
+  declare account_name: string;
+  declare account_type: string;
+  declare currency: string;
+  declare is_active: boolean;
+  declare notes: string | null;
+  declare created_at: Date;
+  declare updated_at: Date | null;
 
   public static associate(models: any) {
     BankAccount.belongsTo(models.Branch, {

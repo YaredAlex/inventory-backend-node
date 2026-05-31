@@ -1,16 +1,10 @@
 import { DataTypes, Model, Sequelize, Optional } from "sequelize";
+import { RefundStatus } from "./sale.js";
 
 export enum RefundMethod {
   CASH = "cash",
   TRANSFER = "transfer",
   ORIGINAL_METHOD = "original_method",
-}
-
-export enum RefundStatus {
-  PENDING = "pending",
-  APPROVED = "approved",
-  COMPLETED = "completed",
-  REJECTED = "rejected",
 }
 
 interface RefundAttributes {
@@ -43,6 +37,7 @@ interface RefundCreationAttributes extends Optional<
   | "approved_at"
   | "completed_at"
   | "notes"
+  | "created_at"
 > {}
 
 export class Refund

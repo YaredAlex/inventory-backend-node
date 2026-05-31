@@ -18,6 +18,14 @@ import branchesRouter from "./routes/branches.js";
 import dashboardRouter from "./routes/dashboard.js";
 import productsRouter from "./routes/product.js";
 import usersRouter from "./routes/user.js";
+import loanRouter from "./routes/loan.js";
+import reportRouter from "./routes/report.js";
+import saleRouter from "./routes/sales.js";
+import stockRouter from "./routes/stock.js";
+import purchaseRouter from "./routes/purchase.js";
+import settingsRouter from "./routes/setting.js";
+import alertRouter from "./routes/alert.js";
+
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
 
@@ -34,10 +42,19 @@ app.use(
       "https://smartlink.mellainnovation.com",
       "https://smartlink-inventory.up.railway.app",
       "https://sefa-inventory.com",
+      "https://inventory.sefa-inventory.com",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Cache-Control",
+      "Pragma",
+      "Expires",
+    ],
+    exposedHeaders: ["Content-Length", "X-Request-Id"],
+    maxAge: 86400, // Cache preflight request for 24 hours (in seconds)
   }),
 );
 app.use(express.json());
@@ -216,6 +233,13 @@ app.use("/api/dashboard", dashboardRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/branches", branchesRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/loans", loanRouter);
+app.use("/api/reports", reportRouter);
+app.use("/api/purchases", purchaseRouter);
+app.use("/api/sales", saleRouter);
+app.use("/api/stock", stockRouter);
+app.use("/api/settings", settingsRouter);
+app.use("/api/alerts", alertRouter);
 app.use(notFound);
 
 // Global error handler - must be last
