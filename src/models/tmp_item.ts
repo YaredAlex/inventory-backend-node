@@ -34,26 +34,27 @@ interface TempItemCreationAttributes extends Optional<
   | "received_by"
   | "received_at"
   | "notes"
+  | "registered_at"
 > {}
 
 export class TempItem
   extends Model<TempItemAttributes, TempItemCreationAttributes>
   implements TempItemAttributes
 {
-  public id!: number;
-  public item_number!: string;
-  public item_name!: string;
-  public description!: string | null;
-  public quantity!: number;
-  public unit_price!: number | null;
-  public customer_name!: string | null;
-  public customer_phone!: string | null;
-  public status!: TempItemStatus;
-  public registered_by!: number;
-  public registered_at!: Date;
-  public received_by!: number | null;
-  public received_at!: Date | null;
-  public notes!: string | null;
+  declare id: number;
+  declare item_number: string;
+  declare item_name: string;
+  declare description: string | null;
+  declare quantity: number;
+  declare unit_price: number | null;
+  declare customer_name: string | null;
+  declare customer_phone: string | null;
+  declare status: TempItemStatus;
+  declare registered_by: number;
+  declare registered_at: Date;
+  declare received_by: number | null;
+  declare received_at: Date | null;
+  declare notes: string | null;
 
   public static associate(models: any) {
     TempItem.belongsTo(models.User, {

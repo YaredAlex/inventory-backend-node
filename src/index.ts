@@ -25,7 +25,7 @@ import stockRouter from "./routes/stock.js";
 import purchaseRouter from "./routes/purchase.js";
 import settingsRouter from "./routes/setting.js";
 import alertRouter from "./routes/alert.js";
-
+import tempItemRouter from "./routes/tmpitems.js";
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
 
@@ -240,6 +240,7 @@ app.use("/api/sales", saleRouter);
 app.use("/api/stock", stockRouter);
 app.use("/api/settings", settingsRouter);
 app.use("/api/alerts", alertRouter);
+app.use("/api/temp-items", tempItemRouter);
 app.use(notFound);
 
 // Global error handler - must be last
