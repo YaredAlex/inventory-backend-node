@@ -83,8 +83,7 @@ export class EmailScheduler {
             where: {
               product_id: product.id,
               branch_id: branch.id,
-              created_at: { [Op.gte]: yesterday },
-              message: { [Op.like]: "%low stock%" },
+              resolved: 0,
             },
           });
 
