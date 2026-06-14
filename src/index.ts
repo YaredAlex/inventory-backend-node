@@ -26,6 +26,10 @@ import purchaseRouter from "./routes/purchase.js";
 import settingsRouter from "./routes/setting.js";
 import alertRouter from "./routes/alert.js";
 import tempItemRouter from "./routes/tmpitems.js";
+import bulkProductRouter from "./routes/bulk_product.js";
+import bulkPurchaseRouter from "./routes/bulk_purchase.js";
+import vatRouter from "./routes/vat.js";
+import walletRouter from "./routes/wallet.js";
 const app: Express = express();
 const PORT = process.env.PORT || 8080;
 
@@ -37,12 +41,9 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "http://127.0.0.1:5173",
-      "http://127.0.0.1:3000",
-      "https://smartlink.mellainnovation.com",
-      "https://smartlink-inventory.up.railway.app",
       "https://sefa-inventory.com",
       "https://inventory.sefa-inventory.com",
+      "https://smartlink.sefa-inventory.com",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
@@ -230,17 +231,21 @@ app.get("/api/db-info", async (req: Request, res: Response) => {
 // ==================== ROUTES ====================
 app.use("/api/auth", authRouter);
 app.use("/api/dashboard", dashboardRouter);
+app.use("/api/products/bulk", bulkProductRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/branches", branchesRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/loans", loanRouter);
 app.use("/api/reports", reportRouter);
+// app.use("/api/purchases/bulk", bulkPurchaseRouter);
 app.use("/api/purchases", purchaseRouter);
 app.use("/api/sales", saleRouter);
 app.use("/api/stock", stockRouter);
-app.use("/api/settings", settingsRouter);
 app.use("/api/alerts", alertRouter);
 app.use("/api/temp-items", tempItemRouter);
+app.use("/api/settings", settingsRouter);
+app.use("/api/vat", vatRouter);
+app.use("/api/wallet", walletRouter);
 app.use(notFound);
 
 // Global error handler - must be last

@@ -29,6 +29,13 @@ export interface BankAccountResponse extends BankAccountBase {
   branch_name?: string | null;
   created_at: Date;
   updated_at?: Date | null;
+  iban?: string | null;
+  swift_code?: string | null;
+  current_balance?: number | null;
+  is_primary?: boolean | null;
+  last_reconciled_at?: Date | null;
+  last_reconciled_balance?: number | null;
+  created_by?: number | null;
 }
 
 // Validation functions

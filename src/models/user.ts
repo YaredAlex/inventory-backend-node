@@ -103,6 +103,26 @@ export class User
       foreignKey: "recorded_by",
       as: "loan_payments",
     });
+    User.hasMany(models.VATPurchase, {
+      foreignKey: "created_by",
+      as: "vat_purchases_created",
+      onDelete: "CASCADE",
+    });
+    User.hasMany(models.VATSale, {
+      foreignKey: "created_by",
+      as: "vat_sales_created",
+      onDelete: "CASCADE",
+    });
+    User.hasMany(models.VATSummary, {
+      foreignKey: "created_by",
+      as: "vat_summaries_created",
+      onDelete: "SET NULL",
+    });
+    User.hasMany(models.VATRateHistory, {
+      foreignKey: "created_by",
+      as: "vat_rates_created",
+      onDelete: "CASCADE",
+    });
   }
 
   public static initModel(sequelize: Sequelize): typeof User {

@@ -98,6 +98,29 @@ export async function requireAdmin(
   }
 }
 
+export async function requireSalesman(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> {
+  try {
+    const user = await getCurrentUser(req, req.app.get("sequelize"));
+
+    if (
+      user.role !== UserRole.ADMIN &&
+      user.role !== UserRole.SALESMAN &&
+      user.role !== UserRole.PRIVILEGED_SALES
+    ) {
+      res.status(403).json({ detail: "Sales access required" });
+      return;
+    }
+
+    (req as any).user = user;
+    next();
+  } catch (error: any) {
+    res.status(401).json({ detail: error.message });
+  }
+}
 /**
  * Express middleware to require privileged access (admin or privileged_sales)
  */

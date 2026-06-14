@@ -66,6 +66,16 @@ export class Product
       foreignKey: "product_id",
       as: "refund_items",
     });
+    Product.hasMany(models.VATPurchase, {
+      foreignKey: "product_id",
+      as: "vat_purchases",
+      onDelete: "SET NULL",
+    });
+    Product.hasMany(models.VATSale, {
+      foreignKey: "product_id",
+      as: "vat_sales",
+      onDelete: "SET NULL",
+    });
   }
 
   public static initModel(sequelize: Sequelize): typeof Product {

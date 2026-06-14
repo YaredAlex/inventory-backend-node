@@ -33,7 +33,7 @@ export class Settings {
     "your-secret-key-change-this-in-production-minimum-32-chars";
   ALGORITHM: string = "HS256";
   ACCESS_TOKEN_EXPIRE_MINUTES: number = parseInt(
-    process.env.ACCESS_TOKEN_EXPIRE_MINUTES || "30",
+    process.env.ACCESS_TOKEN_EXPIRE_MINUTES || "259200",
   );
 
   // App

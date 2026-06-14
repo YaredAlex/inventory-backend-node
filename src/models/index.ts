@@ -23,8 +23,28 @@ import { BackupRecord } from "./backup_record.js";
 import { SystemLog } from "./system_log.js";
 import { TempItem } from "./tmp_item.js";
 
-// Export all models
+// Bulk Product Models
+import { BulkProduct } from "./bulk_product.js";
+import { BulkPurchaseOrder } from "./bulk_purchase_order.js";
+import { BulkPurchaseOrderItem } from "./bulk_purchase_order_item.js";
+import { BulkStock } from "./bulk_stock.js";
+import { BulkStockMovement } from "./bulk_stock_movement.js";
+import { BulkSaleItem } from "./bulk_sale_item.js";
+import { BulkAlert } from "./bulk_alert.js";
+
+// VAT and Wallet Models
+import { Wallet } from "./wallet.js";
+import { WalletTransaction } from "./wallet_transaction.js";
+import { WalletSummary } from "./wallet_summary.js";
+import { BankTransaction } from "./bank_transaction.js";
+import { VATPurchase } from "./vat_purchase.js";
+import { VATSale } from "./vat_sale.js";
+import { VATSummary } from "./val_summary.js";
+import { VATRateHistory } from "./vat_rate_summary.js";
+
+// Export all models (regular + bulk + vat + wallet)
 export {
+  // Regular models
   Branch,
   Product,
   User,
@@ -48,11 +68,28 @@ export {
   BackupRecord,
   SystemLog,
   TempItem,
+  // Bulk models
+  BulkProduct,
+  BulkPurchaseOrder,
+  BulkPurchaseOrderItem,
+  BulkStock,
+  BulkStockMovement,
+  BulkSaleItem,
+  BulkAlert,
+  // VAT and Wallet models
+  Wallet,
+  WalletTransaction,
+  WalletSummary,
+  BankTransaction,
+  VATPurchase,
+  VATSale,
+  VATSummary,
+  VATRateHistory,
 };
 
 // Initialize all models and setup associations
 export function initModels(sequelize: Sequelize) {
-  // Initialize models in order (no circular dependencies)
+  // Initialize regular models in order (no circular dependencies)
   Branch.initModel(sequelize);
   Product.initModel(sequelize);
   User.initModel(sequelize);
@@ -77,7 +114,26 @@ export function initModels(sequelize: Sequelize) {
   SystemLog.initModel(sequelize);
   TempItem.initModel(sequelize);
 
-  // Setup associations after all models are initialized
+  // Initialize bulk models
+  BulkProduct.initModel(sequelize);
+  BulkPurchaseOrder.initModel(sequelize);
+  BulkPurchaseOrderItem.initModel(sequelize);
+  BulkStock.initModel(sequelize);
+  BulkStockMovement.initModel(sequelize);
+  BulkSaleItem.initModel(sequelize);
+  BulkAlert.initModel(sequelize);
+
+  // Initialize VAT and Wallet models
+  Wallet.initModel(sequelize);
+  WalletTransaction.initModel(sequelize);
+  WalletSummary.initModel(sequelize);
+  BankTransaction.initModel(sequelize);
+  VATPurchase.initModel(sequelize);
+  VATSale.initModel(sequelize);
+  VATSummary.initModel(sequelize);
+  VATRateHistory.initModel(sequelize);
+
+  // Setup associations for regular models after all models are initialized
   Branch.associate(sequelize.models);
   Product.associate(sequelize.models);
   User.associate(sequelize.models);
@@ -102,5 +158,26 @@ export function initModels(sequelize: Sequelize) {
   SystemLog.associate(sequelize.models);
   TempItem.associate(sequelize.models);
 
-  console.log("✅ All 24 models initialized and associations set up");
+  // Setup associations for bulk models
+  BulkProduct.associate(sequelize.models);
+  BulkPurchaseOrder.associate(sequelize.models);
+  BulkPurchaseOrderItem.associate(sequelize.models);
+  BulkStock.associate(sequelize.models);
+  BulkStockMovement.associate(sequelize.models);
+  BulkSaleItem.associate(sequelize.models);
+  BulkAlert.associate(sequelize.models);
+
+  // Setup associations for VAT and Wallet models
+  Wallet.associate(sequelize.models);
+  WalletTransaction.associate(sequelize.models);
+  WalletSummary.associate(sequelize.models);
+  BankTransaction.associate(sequelize.models);
+  VATPurchase.associate(sequelize.models);
+  VATSale.associate(sequelize.models);
+  VATSummary.associate(sequelize.models);
+  VATRateHistory.associate(sequelize.models);
+
+  console.log(
+    "✅ All 39 models initialized and associations set up (24 regular + 7 bulk + 8 vat/wallet models)",
+  );
 }

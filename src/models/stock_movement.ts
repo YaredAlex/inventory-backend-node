@@ -9,6 +9,8 @@ export enum MovementType {
   LOAN = "loan",
   REFUND = "refund",
   ADD = "add",
+  VATSALEOUT = "vat_sale_out",
+  VATPURCHASEIN = "vat_purchase_in",
 }
 
 interface StockMovementAttributes {

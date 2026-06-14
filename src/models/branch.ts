@@ -65,6 +65,26 @@ export class Branch
       as: "bank_accounts",
       onDelete: "CASCADE",
     });
+    Branch.hasMany(models.VATPurchase, {
+      foreignKey: "branch_id",
+      as: "vat_purchases",
+      onDelete: "CASCADE",
+    });
+    Branch.hasMany(models.VATSale, {
+      foreignKey: "branch_id",
+      as: "vat_sales",
+      onDelete: "CASCADE",
+    });
+    Branch.hasMany(models.VATSummary, {
+      foreignKey: "branch_id",
+      as: "vat_summaries",
+      onDelete: "CASCADE",
+    });
+    Branch.hasMany(models.WalletSummary, {
+      foreignKey: "branch_id",
+      as: "wallet_summaries",
+      onDelete: "CASCADE",
+    });
   }
 
   public static initModel(sequelize: Sequelize): typeof Branch {

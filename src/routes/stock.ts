@@ -94,7 +94,7 @@ router.post(
     const withVat = req.query.with_vat !== "false";
     const notes = req.query.notes as string;
     const currentUser = req.user!;
-
+    console.log(`request payload ${productId} ${branchId} ${req}`);
     if (!quantity || quantity <= 0) {
       throw new AppError("Quantity must be greater than 0", 400);
     }
